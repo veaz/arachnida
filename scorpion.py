@@ -18,7 +18,7 @@ def metadata(name):
     if len(valores_exif) == 0:
         print(bcolors.WARNING + "Warning: metadata not foud" + bcolors.RESET)
     for tag in valores_exif.keys():
-        if tag is not "JPEGThumbnail":
+        if tag != "JPEGThumbnail":
             print(bcolors.WARNING + str(tag) + bcolors.RESET + " : " + str(valores_exif[tag]))
 
 def small_metadata(name):
@@ -38,7 +38,7 @@ def small_metadata(name):
         if x in small_cases:
             print(bcolors.WARNING + str(tag) + bcolors.RESET + " : " + str(valores_exif[tag]))
 
-if __name__ == '__main__':
+def main():
     n_images = len(sys.argv) - 1
     if n_images > 0:
         images = [images for images in sys.argv[1:]]
@@ -52,3 +52,6 @@ if __name__ == '__main__':
                 metadata(image)
     else:
         print("Error: invalid numbers of arguments")
+
+if __name__ == '__main__':
+    main()

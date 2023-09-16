@@ -20,7 +20,7 @@ def get_links(url, url_links, dominio):
     links = soup.findAll('a')
     for tag in links:
         cut = tag.get('href')
-        if cut is not None:
+        if cut != None:
             if dominio in cut:
                 url_links.append(cut)
             elif cut.startswith('/') == True:
@@ -40,7 +40,7 @@ def get_images(url_links, dominio):
         images = soup.findAll('img')
         for tag in images:
             cut = tag.get('src')
-            if cut is not None and len(cut) > 0:
+            if cut != None and len(cut) > 0:
                 if cut.endswith(".png") or cut.endswith(".gif") or cut.endswith(".bmp") or cut.endswith(".jpg" or cut.endswith(".jpeg")):
                     if cut.startswith('//') == True:
                         cut = cut[2:]
@@ -48,7 +48,7 @@ def get_images(url_links, dominio):
                         if cut.startswith("https") == False:
                             cut = "https://" + cut
                         url_images.append(cut)
-                    elif cut.startswith('/') and ".com" is not cut:
+                    elif cut.startswith('/') and ".com" != cut:
                         cut = "https://" + dominio + cut
                         url_images.append(cut)
         return url_images
@@ -61,7 +61,7 @@ def check(rec):
     if (len(sys.argv) == 1):
         print(bcolors.FAIL + "Error: please insert a URL" + bcolors.RESET)
         exit()
-    elif "-r" is not opts:
+    elif "-r" != opts:
         url = sys.argv[len(sys.argv) - 1]
         if url.endswith("/") == False:
             url = url + '/'
@@ -70,7 +70,7 @@ def check(rec):
 
         dominio = url[url.index('/') + 2:-1]
         
-        if rec is not 0 and len(url_links) < int(rec):
+        if rec != 0 and len(url_links) < int(rec):
             x = 0
             url_links = get_links(url, url_links, dominio)
             while len(url_links) < int(rec):
@@ -107,7 +107,7 @@ def download_image(folder, url, name):
     f.close()
     return 1
 
-if __name__ == '__main__':
+def main():
     opts = [opt for opt in sys.argv[1:]]
     if "-p" in opts:
         try:
@@ -158,3 +158,6 @@ if __name__ == '__main__':
             if x == rec:
                 break
         print(bcolors.OK + str(x) + bcolors.RESET + " images downloaded successfully")
+
+if __name__ == '__main__':
+    main()
